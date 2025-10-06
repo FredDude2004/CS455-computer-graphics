@@ -47,11 +47,25 @@ public class P extends Model
                 new Vertex(0.25, 0.6,  0.0));
 
       // Create the back face vertices.
+      addVertex(new Vertex(0.00, 0.00, 0.25),
+                new Vertex(0.00, 1.00, 0.25),
+                new Vertex(0.75, 1.00, 0.25),
+                new Vertex(1.00, 0.8,  0.25),
+                new Vertex(1.00, 0.6,  0.25),
+                new Vertex(0.75, 0.4,  0.25),
+                new Vertex(0.25, 0.4,  0.25),
+                new Vertex(0.25, 0.0,  0.25));
 
+      addVertex(new Vertex(0.25, 0.8,  0.25),
+                new Vertex(0.75, 0.8,  0.25),
+                new Vertex(0.75, 0.6,  0.25),
+                new Vertex(0.25, 0.6,  0.25));
 
 
       // Create the Color objects.
-
+      Color c0 = new Color(255, 0, 0);
+      Color c1 = new Color(0, 255, 0);
+      Color c2 = new Color(255, 0, 255);
 
 
       // Create the front face line segments
