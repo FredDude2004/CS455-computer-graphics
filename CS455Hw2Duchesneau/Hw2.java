@@ -29,9 +29,9 @@ public class Hw2 {
         final N n = new N();
         final W w = new W();
 
-        scene.addPosition(new Position(p, "p1", new Vector(0, 0, -1.5)));
-        scene.addPosition(new Position(n, "p2", new Vector(1, 0, -1.5)));
-        scene.addPosition(new Position(w, "p3", new Vector(2, 0, -1.5)));
+        scene.addPosition(new Position(p, "p1", new Vector(-1.5, -0.5, -1.5)));
+        scene.addPosition(new Position(n, "p2", new Vector(-0.5, -0.5, -1.5)));
+        scene.addPosition(new Position(w, "p3", new Vector(0.5, -0.5, -1.5)));
 
         // If you need to, print the Scene data structure to the console.
         // This can help you check that your models and scene make sense.
@@ -61,13 +61,13 @@ public class Hw2 {
 
             // Update each Model's location.
             if (i < 25) {
-                pZ -=  0.08;
+                pZ -=  0.04;
             } else if (i < 75) {
                 nX -= 0.02;
                 wX -= 0.02;
                 pX += 0.04;
             } else if (i < 100) {
-                pZ +=  0.08;
+                pZ +=  0.04;
             } else if (i < 125) {
                 nY += 0.04;
             } else if (i < 175) {
@@ -90,9 +90,13 @@ public class Hw2 {
                 nY += 0.04;
             }
 
-            scene.setPosition(0, new Position(p, "p1", vP.plus(new Vector(pX, pY, pZ))));
-            scene.setPosition(1, new Position(n, "p2", vN.plus(new Vector(nX, nY, nZ))));
-            scene.setPosition(2, new Position(w, "p3", vW.plus(new Vector(wX, wY, wZ))));
+            double pXDiff = pX - vP.x, pYDiff = pY - vP.y, pZDiff = pZ - vP.z;
+            double nXDiff = nX - vN.x, nYDiff = nY - vN.y, nZDiff = nZ - vN.z;
+            double wXDiff = wX - vW.x, wYDiff = wY - vW.y, wZDiff = wZ - vW.z;
+
+            scene.setPosition(0, new Position(p, "p1", vP.plus(new Vector(pXDiff, pYDiff, pZDiff))));
+            scene.setPosition(1, new Position(n, "p2", vN.plus(new Vector(nXDiff, nYDiff, nZDiff))));
+            scene.setPosition(2, new Position(w, "p3", vW.plus(new Vector(wXDiff, wYDiff, wZDiff))));
         }
     }
 }

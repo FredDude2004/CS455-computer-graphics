@@ -22,34 +22,34 @@ public class W extends Model {
         super("W");
 
         // Create the front face vertices.
-        this.addVertex(new Vertex(0.166, 0.0, 0.0),
+        this.addVertex(new Vertex(0.2, 0.0, 0.0),
                 new Vertex(0.0, 1.0, 0.0),
-                new Vertex(0.166, 1.0, 0.0),
-                new Vertex(0.25, 0.5, 0.0),
-                new Vertex(0.333, 1.0, 0.0),
-                new Vertex(0.666, 1.0, 0.0),
-                new Vertex(0.75, 0.5, 0.0),
-                new Vertex(0.833, 1.0, 0.0),
+                new Vertex(0.2, 1.0, 0.0),
+                new Vertex(0.3, 0.5, 0.0),
+                new Vertex(0.4, 1.0, 0.0),
+                new Vertex(0.6, 1.0, 0.0),
+                new Vertex(0.7, 0.5, 0.0),
+                new Vertex(0.8, 1.0, 0.0),
                 new Vertex(1.0, 1.0, 0.0),
-                new Vertex(0.833, 0.0, 0.0),
-                new Vertex(0.666, 0.0, 0.0),
+                new Vertex(0.8, 0.0, 0.0),
+                new Vertex(0.6, 0.0, 0.0),
                 new Vertex(0.5, 0.5, 0.0),
-                new Vertex(0.333, 0.0, 0.0));
+                new Vertex(0.4, 0.0, 0.0));
 
         // Create the back face vertices.
-        this.addVertex(new Vertex(0.166, 0.0, -0.25),
+        this.addVertex(new Vertex(0.2, 0.0, -0.25),
                 new Vertex(0.0, 1.0, -0.25),
-                new Vertex(0.166, 1.0, -0.25),
-                new Vertex(0.25, 0.5, -0.25),
-                new Vertex(0.333, 1.0, -0.25),
-                new Vertex(0.666, 1.0, -0.25),
-                new Vertex(0.75, 0.5, -0.25),
-                new Vertex(0.833, 1.0, -0.25),
+                new Vertex(0.2, 1.0, -0.25),
+                new Vertex(0.3, 0.5, -0.25),
+                new Vertex(0.4, 1.0, -0.25),
+                new Vertex(0.6, 1.0, -0.25),
+                new Vertex(0.7, 0.5, -0.25),
+                new Vertex(0.8, 1.0, -0.25),
                 new Vertex(1.0, 1.0, -0.25),
-                new Vertex(0.833, 0.0, -0.25),
-                new Vertex(0.666, 0.0, -0.25),
+                new Vertex(0.8, 0.0, -0.25),
+                new Vertex(0.6, 0.0, -0.25),
                 new Vertex(0.5, 0.5, -0.25),
-                new Vertex(0.333, 0.0, -0.25));
+                new Vertex(0.4, 0.0, -0.25));
 
         // Create the Color objects.
         this.addColor(new Color(255, 0, 0), // red (0)
@@ -88,17 +88,17 @@ public class W extends Model {
 
         // Create the front face to back face line segments.
         this.addPrimitive(new LineSegment(0, 13, 0),
+                new LineSegment(1, 14, 1),
                 new LineSegment(2, 15, 1),
-                new LineSegment(3, 16, 1),
-                new LineSegment(4, 17, 2),
+                new LineSegment(3, 16, 2),
+                new LineSegment(4, 17, 1),
                 new LineSegment(5, 18, 1),
-                new LineSegment(6, 19, 1),
-                new LineSegment(7, 20, 2),
+                new LineSegment(6, 19, 2),
+                new LineSegment(7, 20, 1),
                 new LineSegment(8, 21, 1),
-                new LineSegment(9, 22, 1),
+                new LineSegment(9, 22, 0),
                 new LineSegment(10, 23, 0),
-                new LineSegment(11, 24, 0),
-                new LineSegment(12, 25, 2),
-                new LineSegment(13, 26, 1));
+                new LineSegment(11, 24, 2),
+                new LineSegment(12, 25, 2));
     }
 }
