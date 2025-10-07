@@ -1,2 +1,6 @@
 renderer_1/
 pom.xml
+.classpath
+.project
+.settings
+target
