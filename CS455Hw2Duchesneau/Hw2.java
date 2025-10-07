@@ -1,5 +1,5 @@
 /*
-   Kaleb Duchesneau 08/09/2025
+   Kaleb Duchesneau 10/01/2025
    CS455 Computer Graphics
    Professor: Roger Kraft
 */
@@ -25,6 +25,13 @@ public class Hw2 {
         final Scene scene = new Scene();
 
         // Create the Models and give them an initial location.
+        final P p = new P();
+        final N n = new N();
+        final W w = new W();
+
+        scene.addPosition(new Position(p, "p1", new Vector(0, 0, -1.5)));
+        scene.addPosition(new Position(p, "p2", new Vector(1, 0, -1.5)));
+        scene.addPosition(new Position(p, "p3", new Vector(2, 0, -1.5)));
 
         // If you need to, print the Scene data structure to the console.
         // This can help you check that your models and scene make sense.
