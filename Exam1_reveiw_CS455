@@ -1,0 +1,199 @@
+1.  A FrameBuffer data structure is a one-dimensional of integer primitives which reperesent a 2D array of color pixels.
+    It is used to turn the renderer output into image files.
+
+2.  A Model data structure is a tree containing a String 'name', a Vertex List, a Color
+    List and a Primitive List. It represents a geometric shape in a Scene. It is used to easily manipulate
+    geometric shapes in space.
+
+3.  A Position data structure is a tree containing a Model object, a translation Vector and a String 'name'. It
+    represents a position in 3D space that a model is located at. It is used to position Models in camera space and
+    render them to images.
+
+4.  A Scene is a tree data structure that contains a Camera object and List of Positions and a String 'name'. It
+    represents a collection of geometric shapes in 3D space.
+
+5.  A PPM file is an image format that contains a header with the file type, height, width, a number representing the
+    number of values used to represend the amound of red, green and blue in a pixel, and finally an unreadable set of
+    bytes with the pixel data. The PPM file is very similar to the FrameBuffer being a row of bytes that represent
+    colors, but rather than the FrameBuffer having a header it has fields with the header values.
+
+6.  Model Coordinates: The Model's local coordinates
+    Camera Coordinates: The space from the cameras perspective to the objects in front of it
+    Image-Plane Coordinates: The plane in front of the camera that the objects get projected onto
+    Pixel-Plane Coordinates: An in-between plane to help deceide what pixels to change based on the projection of the
+                             models
+    Viewport Coordinates: Local corrdinates inside of a FrameBuffer object
+    Framebuffer Coordinates: coordinates of pixel data with the origin in the upper lefthand corner
+
+7.
+           x                  /
+           |                 /
+       x_c +                + (x_c, z_c)
+           |               /|
+           |              / |
+           |             /  |
+           |            /   |
+           |           /    |
+           |          /     |
+           |         /      |
+           |        /       |
+       x_p +       +        |
+           |      /|        |
+           |     / |        |
+           |    /  |        |
+           |   /   |        |
+           |  /    |        |
+           | /     |        |
+    Camera +-------+--------+------------> -z
+
+8.
+import renderer.scene.*;
+import renderer.scene.primitives.*;
+import renderer.pipeline.*;
+import renderer.framebuffer.*;
+
+import java.awt.Color;
+
+public class Problem8 {
+    public static void main(String[] args) {
+        final int height = 100;
+        final int width = 100;
+        FrameBuffer fb = new FrameBuffer(width, height, Color.white);
+        final Scene scene = new Scene();
+
+        Model m = new Model("Problem 8");
+        m.addVertex(new Vertex(0, 1, 0),
+                new Vertex(1, 0, 0),
+                new Vertex(-1, -1, 0));
+        m.addColor(Color.black);
+        m.addPrimitive(new LineSegment(0, 1, 0), // vertex, vertex, color
+                new LineSegment(1, 2, 0),
+                new LineSegment(2, 0, 0));
+        Position p = new Position(m, "p0", new Vector(0, 0, -1));
+        scene.addPosition(p);
+
+        fb.clearFB();
+        Pipeline.render(scene, fb);
+        fb.dumpFB2File("Problem8.ppm");
+    }
+}
+
+9.
+import renderer.scene.*;
+import renderer.scene.primitives.*;
+import renderer.pipeline.*;
+import renderer.framebuffer.*;
+
+import java.awt.Color;
+
+public class Problem9 {
+    public static void main(String[] args) {
+        final int height = 100;
+        final int width = 100;
+        FrameBuffer fb = new FrameBuffer(width, height, Color.white);
+        final Scene scene = new Scene();
+
+        Model m = new Model("Problem 8");
+        m.addVertex(new Vertex(0, 0, 0),
+                new Vertex(0, 1, 0),
+                new Vertex(1, 1, 0));
+        m.addColor(Color.black);
+        m.addPrimitive(new LineSegment(0, 1, 0), // vertex, vertex, color
+                new LineSegment(1, 2, 0),
+                new LineSegment(2, 0, 0));
+        Position p1 = new Position(m, "p1", new Vector(0, 0, -2));
+        Position p2 = new Position(m, "p2", new Vector(1, 0, -2));
+        scene.addPosition(p1);
+        scene.addPosition(p2);
+
+        fb.clearFB();
+        Pipeline.render(scene, fb);
+        fb.dumpFB2File("Problem9.ppm");
+    }
+}
+
+10.
+import renderer.scene.*;
+import renderer.scene.primitives.*;
+import renderer.scene.util.DrawSceneGraph;
+import renderer.framebuffer.*;
+import renderer.pipeline.*;
+
+import java.awt.Color;
+
+public class Problem10 {
+    public static void main(String[] args) {
+        final Scene scene = new Scene("Problem 10");
+        final Model model = new Model("Problem 10");
+        model.addVertex(new Vertex(-1, 0, 0),
+            new Vertex(1, 0, 0),
+            new Vertex(0, -1, 0));
+        model.addColor(new Color(255, 0, 255));
+        model.addPrimitive(new LineSegment(0, 2, 0),
+            new LineSegment(1, 2, 0));
+
+        scene.addPosition(new Position(model, "p0", new Vector(0, 1, -1)));
+
+        final int width  = 200;
+        final int height = 200;
+        final FrameBuffer fb = new FrameBuffer(width, height, Color.white);
+
+        Rasterize.doClipping = true;
+        scene.debug = true;
+        Pipeline.render(scene, fb);
+        fb.dumpFB2File("Problem10.ppm");
+        System.out.println("Saved " + "Problem10.ppm");
+    }
+}
+
+11.
+(a) x -> -4/-6 = 2/3
+    y -> 3/-6 = -1/2
+    z -> -1
+    (2/3, -1/2, -1)
+(b) x_pp -> 0.5 + (200/2.001)(4 + 1) = 167.0833
+    y_pp -> 0.5 + (200/2.001)(-3 + 1) = 25.4875
+    (167.0833, 25.4875)
+(c) x_vp -> Math.round(x_pp) = 167
+    y_vp -> Math.round(y_pp) = 25
+    (167, 25)
+(d) x_fb -> 167 + 0 = 167
+    y_fb -> 25 + 50 = 75
+    (167, 75)
+(e) index -> 75 * 100 + 167 = 7667
+
+12.
+(a) index -> 188 * 600 + 257 = 113057
+(b)
+    import java.awt.Color;
+
+    import renderer.framebuffer.*;
+
+    public class Problem12 {
+        public static void main(String[] args) {
+            FrameBuffer fb = new FrameBuffer(600, 400, Color.white);
+            fb.setPixelFB(257, 188, Color.black);
+            System.out.println(fb.pixel_buffer[113057]);
+        }
+    }
+(c) vp -> fb
+    (88 + 150, 165 + 150) = (238, 315)
+    fb -> pixel_buffer
+    315 * 600 + 238 = 189238
+(d)
+    import java.awt.Color;
+
+    import renderer.framebuffer.*;
+
+    public class Problem12 {
+        public static void main(String[] args) {
+            FrameBuffer fb = new FrameBuffer(600, 400, Color.white);
+            FrameBuffer.Viewport vp = fb.new Viewport(150, 150, 200, 200, Color.white)
+            fb.setPixelFB(238, 315, Color.black);
+            System.out.println(fb.pixel_buffer[189238]);
+        }
+    }
+
+13.
+
+
