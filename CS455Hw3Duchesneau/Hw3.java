@@ -1,7 +1,5 @@
 /*
-   Kaleb Duchesneau 11/14/2025
-   CS455 Computer Graphics
-   Professor: Roger Kraft
+
  */
 
 import renderer.scene.*;
@@ -294,7 +292,7 @@ public class Hw3 {
             public void actionPerformed(ActionEvent e) {
                 System.out.println(scene);
             }
-        })
+        });
 
         screenshot.addActionListener(new ActionListener() {
             @Override
